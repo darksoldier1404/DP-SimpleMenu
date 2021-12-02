@@ -13,6 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
@@ -126,6 +127,10 @@ public class DSMFunction {
     }
 
     public static void openCommandSettingGUI(Player p, String name, ItemStack item, int slot) {
+        String command = "명령어를 설정해주세요.";
+        if (NBT.hasTagKey(item, "dsm.command")) {
+            command = NBT.getStringTag(item, "dsm.command");
+        }
         new AnvilGUI.Builder()
                 .onComplete((player, text) -> {
                     plugin.menus.get(name).set("Menu.ITEMS." + slot, setCommand(item, text));
@@ -134,11 +139,10 @@ public class DSMFunction {
                     Bukkit.getScheduler().runTaskLater(plugin, () -> openCommandSettingGUI(p, name), 5L);
                     return AnvilGUI.Response.close();
                 })
-                .preventClose()
-                .text(name)
+                .text(command)
                 .itemLeft(new ItemStack(Material.COMMAND_BLOCK))
                 .itemRight(null)
-                .title(name + " 메뉴 " + slot + "슬롯의 커맨드 설정")
+                .title(name + " 메뉴 커맨드 설정")
                 .plugin(plugin)
                 .open(p);
     }
