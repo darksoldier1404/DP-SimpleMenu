@@ -9,7 +9,7 @@ tasks.withType(JavaCompile) {
 }
 
 group 'github.com/darksoldier1404'
-version = '1.0.0.0'
+version = '1.0.0.18'
 
 jar {
     destinationDirectory.set(file("C:\\Minecraft Servers\\1.18 Play Ground\\plugins\\"))
@@ -70,7 +70,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     compileOnly "io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT"
-    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.3.82'
+    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.3.83'
 }
 
 test {

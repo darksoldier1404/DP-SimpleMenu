@@ -44,7 +44,7 @@ public class SimpleMenu extends JavaPlugin {
         prefix = ChatColor.translateAlternateColorCodes('&', config.getString("Settings.Prefix"));
         DSMFunction.loadAllMenus();
         plugin.getServer().getPluginManager().registerEvents(new DSMEvent(), plugin);
-        getCommand("dsm").setExecutor(new DSMCommand());
+        getCommand("com/darksoldier1404/dsm").setExecutor(new DSMCommand());
     }
 
     @Override
