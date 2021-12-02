@@ -1,0 +1,78 @@
+import static sun.security.util.Debug.println
+
+plugins {
+    id 'java'
+}
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+group 'github.com/darksoldier1404'
+version = '1.0.0.0'
+
+jar {
+    destinationDirectory.set(file("C:\\Minecraft Servers\\1.18 Play Ground\\plugins\\"))
+}
+
+task deleteMyFile(type: Delete) {
+    delete "C:\\Minecraft Servers\\1.18 Play Ground\\plugins\\DP-SimpleMenu-" + version + ".jar"
+}
+
+task DS_BUILD {
+    doFirst {
+        def v = buildFile.getText().find(version)
+        def (major, minor, patch, build) = v.tokenize('.')
+        int newBuild = build.toInteger() + 1
+        String newVersion = major + "." + minor + "." + patch + "." + newBuild
+        String updatedVersion = buildFile.getText().replaceFirst("version = '" + v + "'", "version = '" + newVersion + "'")
+        buildFile.setText(updatedVersion)
+        println "Version Updated. : " + newVersion
+
+        sourceSets.main.resources.srcDirs().getFiles().forEach(o -> {
+            if (o.getName().equals("plugin.yml")) {
+                List<String> lines = new ArrayList<String>()
+                String line
+                File f = o
+                FileReader fr = new FileReader(f)
+                BufferedReader br = new BufferedReader(fr)
+                while ((line = br.readLine()) != null) {
+                    if (line.contains("version"))
+                        line = line.replace("version: " + version.toString(), "version: " + newVersion)
+                    lines.add(line + "\n")
+                }
+                fr.close()
+                br.close()
+
+//                BufferedWriter out = new BufferedWriter(fw)
+                BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF-8"));
+                for (String s : lines)
+                    out.write(s)
+                out.flush()
+                out.close()
+            }
+        })
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://papermc.io/repo/repository/maven-public/" }
+    maven {
+        url "http://dpnw.site:8081/repository/maven-public/"
+        allowInsecureProtocol = true
+    }
+}
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compileOnly "io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT"
+    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.3.82'
+}
+
+test {
+    useJUnitPlatform()
+}
