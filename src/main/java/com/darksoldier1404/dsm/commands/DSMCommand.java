@@ -1,6 +1,7 @@
 package com.darksoldier1404.dsm.commands;
 
 import com.darksoldier1404.dsm.SimpleMenu;
+import com.darksoldier1404.dsm.functions.DSMFunction;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,7 +44,8 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
                 p.sendMessage(prefix + "해당 메뉴는 존재하지 않습니다.");
                 return false;
             }
-
+            DSMFunction.openMenu(p, args[1]);
+            return false;
         }
         if(args[0].equals("list")) {
             p.sendMessage(prefix + "<<< 메뉴 목록 >>>");
@@ -60,7 +62,8 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
                     p.sendMessage(prefix + "해당 메뉴는 이미 존재합니다.");
                     return false;
                 }
-
+                DSMFunction.createMenu(p, args[1], args[2]);
+                return false;
             }
             if(args[0].equals("items")) {
                 if(args.length == 1) {
@@ -71,7 +74,8 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
                     p.sendMessage(prefix + "해당 메뉴는 존재하지 않습니다.");
                     return false;
                 }
-
+                DSMFunction.openItemSettingGUI(p, args[1]);
+                return false;
             }
             if(args[0].equals("cmds")) {
                 if(args.length == 1) {
@@ -83,6 +87,8 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
                     p.sendMessage(prefix + "해당 메뉴는 존재하지 않습니다.");
                     return false;
                 }
+                DSMFunction.openCommandSettingGUI(p, args[1]);
+                return false;
             }
             if(args[0].equals("price")) {
                 if(args.length == 1) {
@@ -93,11 +99,22 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
                     p.sendMessage(prefix + "해당 메뉴는 존재하지 않습니다.");
                     return false;
                 }
-
+                DSMFunction.openPriceSettingGUI(p, args[1]);
+                return false;
             }
-
+            if(args[0].equals("delete")) {
+                if(args.length == 1) {
+                    p.sendMessage(prefix + "메뉴 이름을 입력해주세요.");
+                    return false;
+                }
+                if(!plugin.menus.containsKey(args[1])) {
+                    p.sendMessage(prefix + "해당 메뉴는 존재하지 않습니다.");
+                    return false;
+                }
+                DSMFunction.deleteMenu(p, args[1]);
+                return false;
+            }
         }
-
         return false;
     }
 

@@ -27,7 +27,7 @@ public class DSMFunction {
         YamlConfiguration data = new YamlConfiguration();
         data.set("Menu.NAME", name);
         data.set("Menu.ROWS", rows);
-        
+
         plugin.menus.put(name, data);
     }
 
