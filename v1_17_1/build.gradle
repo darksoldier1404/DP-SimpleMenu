@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'github.com/darksoldier1404'
+version '1.0.0.17'
+
+repositories {
+    mavenCentral()
+    maven { url "https://papermc.io/repo/repository/maven-public/" }
+    maven {
+        url "http://dpnw.site:8081/repository/maven-public/"
+        allowInsecureProtocol = true
+    }
+}
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compileOnly "io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT"
+    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.3.83'
+}
+
+test {
+    useJUnitPlatform()
+}
