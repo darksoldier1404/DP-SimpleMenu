@@ -3,6 +3,7 @@ package com.darksoldier1404.dsm.events;
 import com.darksoldier1404.dsm.SimpleMenu;
 import com.darksoldier1404.dsm.enums.MenuSettingType;
 import com.darksoldier1404.dsm.functions.DSMFunction;
+import com.darksoldier1404.duc.utils.NBT;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +21,9 @@ public class DSMEvent implements Listener {
         if (plugin.currentMenuSettings.containsKey(p.getUniqueId())) {
             if (plugin.currentMenuSettings.get(p.getUniqueId()).b() == MenuSettingType.ITEMS) {
                 DSMFunction.saveItemSetting(p, plugin.currentMenuSettings.get(p.getUniqueId()).a(), e.getView().getTopInventory());
+                plugin.currentMenuSettings.remove(p.getUniqueId());
+            } else if (plugin.currentMenuSettings.get(p.getUniqueId()).b() == MenuSettingType.COMMANDS) {
+                plugin.currentMenuSettings.remove(p.getUniqueId());
             }
         }
     }
@@ -30,11 +34,24 @@ public class DSMEvent implements Listener {
         if (e.getClickedInventory() == null) return;
         if (plugin.currentMenuSettings.containsKey(p.getUniqueId())) {
             if (e.getCurrentItem() != null) {
-                if (plugin.currentMenuSettings.get(p.getUniqueId()).b() == MenuSettingType.ITEMS) {
-                    DSMFunction.openCommandSettingGUI(p, plugin.currentMenuSettings.get(p.getUniqueId()).a(), e.getCurrentItem(), e.getSlot());
+                if (plugin.currentMenuSettings.get(p.getUniqueId()).b() == MenuSettingType.COMMANDS) {
                     e.setCancelled(true);
+                    DSMFunction.openCommandSettingGUI(p, plugin.currentMenuSettings.get(p.getUniqueId()).a(), e.getCurrentItem(), e.getSlot());
                 }
             }
+        } else {
+            if (e.getCurrentItem() == null) return;
+            String title = e.getView().getTitle();
+            plugin.menus.keySet().forEach(menu -> {
+                if (title.contains(menu) && title.contains("메뉴")) {
+                    e.setCancelled(true);
+                    if (NBT.hasTagKey(e.getCurrentItem(), "dsm.command")) {
+                        String command = NBT.getStringTag(e.getCurrentItem(), "dsm.command");
+                        p.performCommand(command);
+                        p.closeInventory(InventoryCloseEvent.Reason.PLUGIN);
+                    }
+                }
+            });
         }
     }
 }

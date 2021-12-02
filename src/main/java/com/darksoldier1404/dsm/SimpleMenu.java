@@ -3,6 +3,7 @@ package com.darksoldier1404.dsm;
 import com.darksoldier1404.dsm.commands.DSMCommand;
 import com.darksoldier1404.dsm.enums.MenuSettingType;
 import com.darksoldier1404.dsm.events.DSMEvent;
+import com.darksoldier1404.dsm.functions.DSMFunction;
 import com.darksoldier1404.duc.UniversalCore;
 import com.darksoldier1404.duc.utils.ConfigUtils;
 import com.darksoldier1404.duc.utils.Tuple;
@@ -41,6 +42,7 @@ public class SimpleMenu extends JavaPlugin {
         core = (UniversalCore) pl;
         config = ConfigUtils.loadDefaultPluginConfig(plugin);
         prefix = ChatColor.translateAlternateColorCodes('&', config.getString("Settings.Prefix"));
+        DSMFunction.loadAllMenus();
         plugin.getServer().getPluginManager().registerEvents(new DSMEvent(), plugin);
         getCommand("dsm").setExecutor(new DSMCommand());
     }
