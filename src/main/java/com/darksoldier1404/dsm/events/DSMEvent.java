@@ -19,10 +19,10 @@ public class DSMEvent implements Listener {
     public void onInventoryClose(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
         if (plugin.currentMenuSettings.containsKey(p.getUniqueId())) {
-            if (plugin.currentMenuSettings.get(p.getUniqueId()).b() == MenuSettingType.ITEMS) {
-                DSMFunction.saveItemSetting(p, plugin.currentMenuSettings.get(p.getUniqueId()).a(), e.getView().getTopInventory());
+            if (plugin.currentMenuSettings.get(p.getUniqueId()).getB() == MenuSettingType.ITEMS) {
+                DSMFunction.saveItemSetting(p, plugin.currentMenuSettings.get(p.getUniqueId()).getA(), e.getView().getTopInventory());
                 plugin.currentMenuSettings.remove(p.getUniqueId());
-            } else if (plugin.currentMenuSettings.get(p.getUniqueId()).b() == MenuSettingType.COMMANDS) {
+            } else if (plugin.currentMenuSettings.get(p.getUniqueId()).getB() == MenuSettingType.COMMANDS) {
                 plugin.currentMenuSettings.remove(p.getUniqueId());
             }
         }
@@ -34,9 +34,9 @@ public class DSMEvent implements Listener {
         if (e.getClickedInventory() == null) return;
         if (plugin.currentMenuSettings.containsKey(p.getUniqueId())) {
             if (e.getCurrentItem() != null) {
-                if (plugin.currentMenuSettings.get(p.getUniqueId()).b() == MenuSettingType.COMMANDS) {
+                if (plugin.currentMenuSettings.get(p.getUniqueId()).getB() == MenuSettingType.COMMANDS) {
                     e.setCancelled(true);
-                    DSMFunction.openCommandSettingGUI(p, plugin.currentMenuSettings.get(p.getUniqueId()).a(), e.getCurrentItem(), e.getSlot());
+                    DSMFunction.openCommandSettingGUI(p, plugin.currentMenuSettings.get(p.getUniqueId()).getA(), e.getCurrentItem(), e.getSlot());
                 }
             }
         } else {
