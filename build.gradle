@@ -10,7 +10,9 @@ tasks.withType(JavaCompile) {
 
 group 'github.com/darksoldier1404'
 version = '1.0.0.22'
-
+configurations {
+    jar.archiveName = 'DP-SimpleMenu-_v1_18-' + version + '.jar'
+}
 task deleteMyFile(type: Delete) {
     delete "C:\\Minecraft Servers\\1.18 Play Ground\\plugins\\DP-SimpleMenu-" + version + ".jar"
 }
