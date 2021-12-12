@@ -9,7 +9,7 @@ tasks.withType(JavaCompile) {
 }
 
 group 'github.com/darksoldier1404'
-version = '1.0.0.22'
+version = '1.0.0.23'
 configurations {
     jar.archiveName = 'DP-SimpleMenu-_' + name + '-' + version + '.jar'
 }
