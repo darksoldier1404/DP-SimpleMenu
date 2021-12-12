@@ -4,6 +4,7 @@ import com.darksoldier1404.dsm.SimpleMenu;
 import com.darksoldier1404.dsm.enums.MenuSettingType;
 import com.darksoldier1404.dsm.functions.DSMFunction;
 import com.darksoldier1404.duc.utils.NBT;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
