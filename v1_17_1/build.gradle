@@ -2,22 +2,44 @@ plugins {
     id 'java'
 }
 
-group 'github.com/darksoldier1404'
-version '1.0.0.17'
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.javaModuleVersion = '1.8'
+}
 
+group 'github.com/darksoldier1404'
+version = '1.0.0.22'
+configurations {
+    jar.archiveName = 'DP-SimpleMenu-_' + name + '-' + version + '.jar'
+}
 repositories {
     mavenCentral()
     maven { url "https://papermc.io/repo/repository/maven-public/" }
     maven {
-        url "http://dpnw.site:8081/repository/maven-public/"
+        name "essentialsx-releases"
+        url "https://repo.essentialsx.net/releases/"
+    }
+    maven {
+        url "https://org.bstats/bstats-bukkit"
+    }
+    maven {
+        url 'https://repo.spring.io/plugins-release/'
+    }
+    maven {
+        url "http://dpnw.site:8081/repository/maven-releases/"
         allowInsecureProtocol = true
     }
 }
+
 dependencies {
+    implementation 'org.jetbrains:annotations:20.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     compileOnly "io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT"
-    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.3.83'
+    compileOnly 'net.essentialsx:EssentialsX:2.19.0'
+    compileOnly "org.bstats:bstats-bukkit:2.2.1"
+    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.4.132:1.17.1'
 }
 
 test {

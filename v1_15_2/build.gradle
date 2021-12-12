@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.javaModuleVersion = '1.8'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+group 'github.com/darksoldier1404'
+version = '1.0.0.22'
+configurations {
+    jar.archiveName = 'DP-SimpleMenu-_' + name + '-' + version + '.jar'
+}
+repositories {
+    mavenCentral()
+    maven { url "https://repo.dmulloy2.net/repository/public/" }
+    maven {
+        name "essentialsx-releases"
+        url "https://repo.essentialsx.net/releases/"
+    }
+    maven {
+        url 'https://repo.spring.io/plugins-release/'
+    }
+    maven {
+        url "http://dpnw.site:8081/repository/maven-releases/"
+        allowInsecureProtocol = true
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:20.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compileOnly 'org.spigotmc:spigot:1.15.2-R0.1-SNAPSHOT'
+    compileOnly 'net.essentialsx:EssentialsX:2.19.0'
+    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.4.132:1.15.2'
+}
+
+test {
+    useJUnitPlatform()
+}
