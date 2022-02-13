@@ -33,6 +33,7 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
                 p.sendMessage(prefix + "/dsm items <name> - 메뉴 아이템 설정 GUI를 엽니다.");
                 p.sendMessage(prefix + "/dsm cmds <name> - 메뉴 커맨드 설정 GUI를 엽니다.");
                 p.sendMessage(prefix + "/dsm price <name> - 메뉴 커맨드 사용 가격 설정 GUI를 엽니다.");
+                p.sendMessage(prefix + "/dsm sound <name> - 메뉴 클릭 사운드 설정 GUI를 엽니다.");
                 p.sendMessage(prefix + "/dsm delete <name> - 메뉴를 삭제합니다.");
             }
             return false;

@@ -3,9 +3,10 @@ package com.darksoldier1404.dsm.events;
 import com.darksoldier1404.dsm.SimpleMenu;
 import com.darksoldier1404.dsm.enums.MenuSettingType;
 import com.darksoldier1404.dsm.functions.DSMFunction;
-import com.darksoldier1404.duc.utils.NBT;
+import com.darksoldier1404.dppc.utils.NBT;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -49,7 +50,7 @@ public class DSMEvent implements Listener {
                     if (NBT.hasTagKey(e.getCurrentItem(), "dsm.command")) {
                         String command = NBT.getStringTag(e.getCurrentItem(), "dsm.command");
                         p.performCommand(command);
-                        p.closeInventory(InventoryCloseEvent.Reason.PLUGIN);
+                        p.closeInventory();
                     }
                 }
             });
