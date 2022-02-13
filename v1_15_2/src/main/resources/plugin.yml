@@ -1,9 +1,9 @@
 name: DP-SimpleMenu
-version: 1.0.0.24
+version: 1.0.0.28
 main: com.darksoldier1404.dsm.SimpleMenu
 api-version: 1.15
 authors: [ DEAD_POOLIO_ ]
 depend:
-  - DP-UniversalCore
+  - DPP-Core
 commands:
   dsm:

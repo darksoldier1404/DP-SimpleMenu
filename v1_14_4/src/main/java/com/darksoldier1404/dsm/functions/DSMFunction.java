@@ -2,9 +2,9 @@ package com.darksoldier1404.dsm.functions;
 
 import com.darksoldier1404.dsm.SimpleMenu;
 import com.darksoldier1404.dsm.enums.MenuSettingType;
-import com.darksoldier1404.duc.utils.ConfigUtils;
-import com.darksoldier1404.duc.utils.NBT;
-import com.darksoldier1404.duc.utils.Tuple;
+import com.darksoldier1404.dppc.utils.ConfigUtils;
+import com.darksoldier1404.dppc.utils.NBT;
+import com.darksoldier1404.dppc.utils.Tuple;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

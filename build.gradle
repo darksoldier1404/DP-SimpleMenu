@@ -9,7 +9,7 @@ tasks.withType(JavaCompile) {
 }
 
 group 'github.com/darksoldier1404'
-version = '1.0.0.24'
+version = '1.0.0.28'
 configurations {
     jar.archiveName = 'DP-SimpleMenu-_v1_18-' + version + '.jar'
 }
@@ -57,23 +57,38 @@ task DS_BUILD {
 repositories {
     mavenCentral()
     maven {
-        name = "Paper"
-        url "https://papermc.io/repo/repository/maven-public/"
+        name = "Mojang"
+        url = uri("https://libraries.minecraft.net/")
+    }
+    maven {
+        name = "Spigot"
+        url "https://repo.dmulloy2.net/repository/public/"
+    }
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
     }
     maven {
         url 'https://repo.spring.io/plugins-release/'
     }
     maven {
-        url "http://dpnw.site:8081/repository/maven-releases/"
+        url "http://dpnw.site:8081/repository/maven-public/"
         allowInsecureProtocol = true
     }
+    maven { url = 'https://repo.codemc.io/repository/maven-snapshots/' }
 }
 
 dependencies {
+    implementation 'org.jetbrains:annotations:20.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    compileOnly "io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT"
-    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.4.132:1.18'
+    compileOnly 'org.spigotmc:spigot:1.18-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
+    compileOnly 'com.darksoldier1404.dppc:DPP-Core:1.18.1-SNAPSHOT'
+    compileOnly 'net.wesjd:anvilgui:1.5.3-SNAPSHOT'
 }
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))

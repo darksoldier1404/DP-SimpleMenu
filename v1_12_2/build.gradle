@@ -14,7 +14,7 @@ java {
 }
 
 group 'github.com/darksoldier1404'
-version = '1.0.0.24'
+version = '1.0.0.28'
 configurations {
     jar.archiveName = 'DP-SimpleMenu-_' + name + '-' + version + '.jar'
 }
@@ -29,9 +29,10 @@ repositories {
         url 'https://repo.spring.io/plugins-release/'
     }
     maven {
-        url "http://dpnw.site:8081/repository/maven-releases/"
+        url "http://dpnw.site:8081/repository/maven-public/"
         allowInsecureProtocol = true
     }
+    maven { url = 'https://repo.codemc.io/repository/maven-snapshots/' }
 }
 
 dependencies {
@@ -40,7 +41,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     compileOnly 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
     compileOnly 'net.essentialsx:EssentialsX:2.19.0'
-    compileOnly 'com.darksoldier1404.duc:DP-UniversalCore:1.0.4.132:1.12.2'
+    compileOnly 'com.darksoldier1404.dppc:DPP-Core:1.12.2-SNAPSHOT'
+    compileOnly 'net.wesjd:anvilgui:1.5.3-SNAPSHOT'
 }
 
 test {
