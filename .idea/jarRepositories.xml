@@ -66,5 +66,10 @@
       <option name="name" value="maven4" />
       <option name="url" value="https://repo.codemc.io/repository/maven-snapshots/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven3" />
+      <option name="name" value="maven3" />
+      <option name="url" value="http://dpp.dpnw.site:8081/repository/maven-public/" />
+    </remote-repository>
   </component>
 </project>

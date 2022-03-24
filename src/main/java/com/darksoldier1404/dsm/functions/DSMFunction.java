@@ -121,6 +121,15 @@ public class DSMFunction {
         p.openInventory(getMenuInventory(name));
     }
 
+    public static void openOPSettingGUI(Player p, String name) {
+        if (!isValid(name)) {
+            p.sendMessage(prefix + "존재하지 않는 메뉴입니다.");
+            return;
+        }
+        plugin.currentMenuSettings.put(p.getUniqueId(), new Tuple<>(name, MenuSettingType.OP));
+        p.openInventory(getMenuInventory(name));
+    }
+
     public static void saveItemSetting(Player p, String name, Inventory inv) {
         if (!isValid(name)) return;
         YamlConfiguration data = plugin.menus.get(name);
