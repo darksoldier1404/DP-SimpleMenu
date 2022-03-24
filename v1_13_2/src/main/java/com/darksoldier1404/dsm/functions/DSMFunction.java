@@ -1,11 +1,11 @@
 package com.darksoldier1404.dsm.functions;
 
-import com.darksoldier1404.dsm.SimpleMenu;
-import com.darksoldier1404.dsm.enums.MenuSettingType;
 import com.darksoldier1404.dppc.utils.ConfigUtils;
 import com.darksoldier1404.dppc.utils.NBT;
 import com.darksoldier1404.dppc.utils.Quadruple;
 import com.darksoldier1404.dppc.utils.Tuple;
+import com.darksoldier1404.dsm.SimpleMenu;
+import com.darksoldier1404.dsm.enums.MenuSettingType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -100,6 +100,15 @@ public class DSMFunction {
             return;
         }
         plugin.currentMenuSettings.put(p.getUniqueId(), new Quadruple<>(name, MenuSettingType.PRICES, null, null));
+        p.openInventory(getMenuInventory(name));
+    }
+
+    public static void openOPSettingGUI(Player p, String name) {
+        if (!isValid(name)) {
+            p.sendMessage(prefix + "존재하지 않는 메뉴입니다.");
+            return;
+        }
+        plugin.currentMenuSettings.put(p.getUniqueId(), new Quadruple<>(name, MenuSettingType.OP, null, null));
         p.openInventory(getMenuInventory(name));
     }
 

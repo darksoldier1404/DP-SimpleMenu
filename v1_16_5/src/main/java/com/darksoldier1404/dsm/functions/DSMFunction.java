@@ -1,10 +1,11 @@
 package com.darksoldier1404.dsm.functions;
 
-import com.darksoldier1404.dsm.SimpleMenu;
-import com.darksoldier1404.dsm.enums.MenuSettingType;
+import com.darksoldier1404.dppc.utils.ColorUtils;
 import com.darksoldier1404.dppc.utils.ConfigUtils;
 import com.darksoldier1404.dppc.utils.NBT;
 import com.darksoldier1404.dppc.utils.Tuple;
+import com.darksoldier1404.dsm.SimpleMenu;
+import com.darksoldier1404.dsm.enums.MenuSettingType;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -55,7 +56,8 @@ public class DSMFunction {
         YamlConfiguration data = plugin.menus.get(name);
         String rows = data.getString("Menu.ROWS");
         String title = data.getString("Menu.TITLE");
-        Inventory inv = Bukkit.createInventory(null, Integer.parseInt(rows) * 9, ChatColor.translateAlternateColorCodes('&', title) + " 메뉴");
+        title = ColorUtils.applyColor(title);
+        Inventory inv = Bukkit.createInventory(null, Integer.parseInt(rows) * 9, title + " 메뉴");
         if (data.get("Menu.ITEMS") != null) {
             data.getConfigurationSection("Menu.ITEMS").getKeys(false).forEach(key -> {
                 inv.setItem(Integer.parseInt(key), data.getItemStack("Menu.ITEMS." + key));
@@ -101,12 +103,30 @@ public class DSMFunction {
         plugin.currentMenuSettings.put(p.getUniqueId(), new Tuple<>(name, MenuSettingType.COMMANDS));
     }
 
+    public static void openSoundSettingGUI(Player p, String name) {
+        if (!isValid(name)) {
+            p.sendMessage(prefix + "존재하지 않는 메뉴입니다.");
+            return;
+        }
+        p.openInventory(getMenuInventory(name));
+        plugin.currentMenuSettings.put(p.getUniqueId(), new Tuple<>(name, MenuSettingType.SOUND));
+    }
+
     public static void openPriceSettingGUI(Player p, String name) {
         if (!isValid(name)) {
             p.sendMessage(prefix + "존재하지 않는 메뉴입니다.");
             return;
         }
         plugin.currentMenuSettings.put(p.getUniqueId(), new Tuple<>(name, MenuSettingType.PRICES));
+        p.openInventory(getMenuInventory(name));
+    }
+
+    public static void openOPSettingGUI(Player p, String name) {
+        if (!isValid(name)) {
+            p.sendMessage(prefix + "존재하지 않는 메뉴입니다.");
+            return;
+        }
+        plugin.currentMenuSettings.put(p.getUniqueId(), new Tuple<>(name, MenuSettingType.OP));
         p.openInventory(getMenuInventory(name));
     }
 
@@ -146,8 +166,33 @@ public class DSMFunction {
                 .open(p);
     }
 
+    public static void openSoundSettingGUI(Player p, String name, ItemStack item, int slot) {
+        String sound = "사용하지 않음";
+        if (NBT.hasTagKey(item, "dsm.sound")) {
+            sound = NBT.getStringTag(item, "dsm.sound");
+        }
+        new AnvilGUI.Builder()
+                .onComplete((player, text) -> {
+                    plugin.menus.get(name).set("Menu.ITEMS." + slot, setSound(item, text));
+                    player.sendMessage(prefix + name + " 메뉴 " + slot + "슬롯의 클릭 사운드가 설정되었습니다. : " + text);
+                    ConfigUtils.saveCustomData(plugin, plugin.menus.get(name), name, "menus");
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> openSoundSettingGUI(p, name), 5L);
+                    return AnvilGUI.Response.close();
+                })
+                .text(sound)
+                .itemLeft(new ItemStack(Material.NOTE_BLOCK))
+                .itemRight(null)
+                .title(name + " 메뉴 클릭 사운드 설정")
+                .plugin(plugin)
+                .open(p);
+    }
+
     public static ItemStack setCommand(ItemStack item, String command) {
         return NBT.setStringTag(item, "dsm.command", command);
+    }
+
+    public static ItemStack setSound(ItemStack item, String sound) {
+        return NBT.setStringTag(item, "dsm.sound", sound);
     }
 
 

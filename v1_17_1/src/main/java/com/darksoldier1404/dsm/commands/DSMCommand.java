@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("all")
 public class DSMCommand implements CommandExecutor, TabCompleter {
@@ -20,10 +21,11 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player p)) {
+        if (!(sender instanceof Player)) {
             sender.sendMessage(prefix + "플레이어만 사용 가능합니다.");
             return false;
         }
+        Player p = (Player) sender;
         if (args.length == 0) {
             p.sendMessage(prefix + "/dsm open <name> - 해당 메뉴를 엽니다.");
             p.sendMessage(prefix + "/dsm list - 모든 메뉴 목록을 표시합니다.");
@@ -32,7 +34,9 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
                 p.sendMessage(prefix + "/dsm title <name> - 해당 메뉴의 타이틀을 설정합니다.");
                 p.sendMessage(prefix + "/dsm items <name> - 메뉴 아이템 설정 GUI를 엽니다.");
                 p.sendMessage(prefix + "/dsm cmds <name> - 메뉴 커맨드 설정 GUI를 엽니다.");
+                p.sendMessage(prefix + "/dsm op <name> - 메뉴 커맨드 관리자 권한 설정 GUI를 엽니다.");
                 p.sendMessage(prefix + "/dsm price <name> - 메뉴 커맨드 사용 가격 설정 GUI를 엽니다.");
+                p.sendMessage(prefix + "/dsm sound <name> - 메뉴 클릭 사운드 설정 GUI를 엽니다.");
                 p.sendMessage(prefix + "/dsm delete <name> - 메뉴를 삭제합니다.");
             }
             return false;
@@ -81,6 +85,7 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
                     return false;
                 }
                 DSMFunction.setTitle(p, args[1]);
+                return false;
             }
             if (args[0].equals("items")) {
                 if (args.length == 1) {
@@ -131,6 +136,18 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
                 DSMFunction.deleteMenu(p, args[1]);
                 return false;
             }
+            if (args[0].equals("op")) {
+                if (args.length == 1) {
+                    p.sendMessage(prefix + "메뉴 이름을 입력해주세요.");
+                    return false;
+                }
+                if (!plugin.menus.containsKey(args[1])) {
+                    p.sendMessage(prefix + "해당 메뉴는 존재하지 않습니다.");
+                    return false;
+                }
+                DSMFunction.openOPSettingGUI(p, args[1]);
+                return false;
+            }
         }
         return false;
     }
@@ -139,13 +156,13 @@ public class DSMCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (args.length == 1) {
             if (sender.isOp()) {
-                return Arrays.asList("open", "list", "create", "items", "cmds", "price", "delete");
+                return Arrays.asList("open", "list", "create", "items", "cmds", "price", "delete", "op");
             }
             return Arrays.asList("open", "list");
         }
         if (args.length == 2) {
             if (!args[0].equals("list")) {
-                return plugin.menus.keySet().stream().toList();
+                return plugin.menus.keySet().stream().collect(Collectors.toList());
             }
         }
         if (args.length == 3) {

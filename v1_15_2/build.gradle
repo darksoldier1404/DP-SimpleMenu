@@ -14,7 +14,7 @@ java {
 }
 
 group 'github.com/darksoldier1404'
-version = '1.0.0.28'
+version = '1.0.0.34'
 configurations {
     jar.archiveName = 'DP-SimpleMenu-_' + name + '-' + version + '.jar'
 }
@@ -29,7 +29,7 @@ repositories {
         url 'https://repo.spring.io/plugins-release/'
     }
     maven {
-        url "http://dpnw.site:8081/repository/maven-public/"
+        url "http://dpp.dpnw.site:8081/repository/maven-public/"
         allowInsecureProtocol = true
     }
     maven { url = 'https://repo.codemc.io/repository/maven-snapshots/' }

@@ -6,5 +6,5 @@ public enum MenuSettingType {
     COMMANDS,
     PRICES,
     SOUND,
-    ;
+    OP;
 }

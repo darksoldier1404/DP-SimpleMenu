@@ -5,5 +5,6 @@ public enum MenuSettingType {
     ITEMS,
     COMMANDS,
     PRICES,
-    INSERT,
+    SOUND,
+    OP, INSERT;
 }
