@@ -65,11 +65,15 @@ public class DSMEvent implements Listener {
                     if (NBT.hasTagKey(e.getCurrentItem(), "dsm.command")) {
                         String command = NBT.getStringTag(e.getCurrentItem(), "dsm.command");
                         if (NBT.hasTagKey(e.getCurrentItem(), "op_cmd")) {
-                            p.setOp(true);
-                            p.performCommand(command);
-                            p.setOp(false);
+                            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                                p.setOp(true);
+                                p.performCommand(command);
+                                p.setOp(false);
+                            }, 2L);
                         } else {
-                            p.performCommand(command);
+                            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                                p.performCommand(command);
+                            }, 2L);
                         }
                         p.closeInventory();
                     }
