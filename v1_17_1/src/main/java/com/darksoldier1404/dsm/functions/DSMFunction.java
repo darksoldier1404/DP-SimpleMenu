@@ -57,7 +57,7 @@ public class DSMFunction {
         String rows = data.getString("Menu.ROWS");
         String title = data.getString("Menu.TITLE");
         title = ColorUtils.applyColor(title);
-        Inventory inv = Bukkit.createInventory(null, Integer.parseInt(rows) * 9, title + " 메뉴");
+        Inventory inv = Bukkit.createInventory(null, Integer.parseInt(rows) * 9, title);
         if (data.get("Menu.ITEMS") != null) {
             data.getConfigurationSection("Menu.ITEMS").getKeys(false).forEach(key -> {
                 inv.setItem(Integer.parseInt(key), data.getItemStack("Menu.ITEMS." + key));
