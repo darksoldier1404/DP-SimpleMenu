@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 
 @SuppressWarnings("all")
 public class DSMEvent implements Listener {
@@ -38,7 +39,9 @@ public class DSMEvent implements Listener {
             if (e.getCurrentItem() != null) {
                 if (plugin.currentMenuSettings.get(p.getUniqueId()).getB() == MenuSettingType.COMMANDS) {
                     e.setCancelled(true);
-                    DSMFunction.openCommandSettingGUI(p, plugin.currentMenuSettings.get(p.getUniqueId()).getA(), e.getCurrentItem(), e.getSlot());
+                    if (!e.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+                        DSMFunction.openCommandSettingGUI(p, plugin.currentMenuSettings.get(p.getUniqueId()).getA(), e.getCurrentItem(), e.getSlot());
+                    }
                 }
                 if (plugin.currentMenuSettings.get(p.getUniqueId()).getB() == MenuSettingType.OP) {
                     e.setCancelled(true);
