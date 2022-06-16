@@ -2,48 +2,38 @@ plugins {
     id 'java'
 }
 
+group 'com.darksoldier1404'
+version = '1.0.0.36'
+
 compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    options.javaModuleVersion = '1.8'
+}
+configurations {
+    jar.archiveName = rootProject.name + '-_' + name + '-' + version + '.jar'
+}
+jar {
+    destinationDirectory.set(file("$rootDir/jars"))
 }
 
-group 'github.com/darksoldier1404'
-version = '1.0.0.35'
-configurations {
-    jar.archiveName = 'DP-SimpleMenu-_' + name + '-' + version + '.jar'
+build {
+    sourceCompatibility = 16
+    targetCompatibility = 16
 }
+
 repositories {
     mavenCentral()
-    maven { url "https://papermc.io/repo/repository/maven-public/" }
-    maven {
-        name "essentialsx-releases"
-        url "https://repo.essentialsx.net/releases/"
-    }
-    maven {
-        url "https://org.bstats/bstats-bukkit"
-    }
-    maven {
-        url 'https://repo.spring.io/plugins-release/'
-    }
     maven {
         url "http://dpp.dpnw.site:8081/repository/maven-public/"
         allowInsecureProtocol = true
     }
-    maven { url = 'https://repo.codemc.io/repository/maven-snapshots/' }
 }
 
 dependencies {
-    implementation 'org.jetbrains:annotations:20.1.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    compileOnly "io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT"
-    compileOnly 'net.essentialsx:EssentialsX:2.19.0'
-    compileOnly "org.bstats:bstats-bukkit:2.2.1"
+    implementation 'org.jetbrains:annotations:23.0.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    compileOnly 'org.bukkit.craftbukkit:craftbukkit:R0.1:1.17.1'
+    compileOnly 'org.spigotmc:spigot-api:R0.1:1.17.1'
     compileOnly 'com.darksoldier1404.dppc:DPP-Core:1.17.1-SNAPSHOT'
-    compileOnly 'net.wesjd:anvilgui:1.5.3-SNAPSHOT'
-}
-
-test {
-    useJUnitPlatform()
 }
